@@ -1,0 +1,67 @@
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title">USERS</h3>
+    </div>
+    <div class="panel-body">
+
+      <div class=col-med-12>
+
+        <div class="form-group">
+          <label for="">Search</label>
+          <!-- (ngModelChange)="search($event)" -->
+          <input type="text" class="form-control" [(ngModel)]="txtValue"  id="" placeholder="Input field">
+        </div>
+
+        <button class="btn btn-success" (click)="search()" >Submit</button>
+
+      </div>
+
+      <div class="col-med-12">
+
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>NAME</th>
+                <th>SURNAME</th>
+                <th>EMAIL</th>
+                <th>EDIT</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr (click)="editable(item)" *ngFor="let item of users | paginate: { id: 'pagination_users',
+                                                          itemsPerPage: pageSize,
+                                                          currentPage: p,
+                                                          totalItems: total }" >
+                <td [innerText]="item.id"></td>
+                <td *ngIf="!item.edit" [innerText]="item.name"></td>
+                <td *ngIf="item.edit">
+                  <div class="form-group" >
+                    <input type="text" name="nome"  class="form-control" [(ngModel)]="item.name" >
+                  </div>
+                </td>
+                <td [innerText]="item.surname"></td>
+                <td [innerText]="item.email"></td>
+                <td><a [routerLink]="['/fulllayout/user', item.id]"  class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <pagination-controls  id="pagination_users"
+                (pageChange)="pageChanged($event)"
+                directionLinks="true"
+                previousLabel="Previous"
+                nextLabel="Next"
+                screenReaderPaginationLabel="Pagination"
+                screenReaderPageLabel="page"
+                screenReaderCurrentLabel="You're on page">
+        </pagination-controls>
+
+      </div>
+
+    </div>
+  </div>
+

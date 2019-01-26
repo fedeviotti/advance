@@ -1,0 +1,62 @@
+
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">USERS</h3>
+  </div>
+  <div class="panel-body">
+
+    <div class=col-med-12>
+
+      <div class="form-group">
+        <label for="">Search</label>
+        <!-- (ngModelChange)="search($event)" -->
+        <input type="text" class="form-control"  id="" placeholder="Input field">
+      </div>
+
+      <button class="btn btn-success" >Submit</button>
+
+    </div>
+
+    <div class="col-med-12">
+
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>NAME</th>
+              <th>DESCRIPTION</th>
+              <th>PRICE</th>
+              <th>IMAGE</th>
+              <th>EDIT</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of products | paginate: { id: 'pagination_products',
+                                                        itemsPerPage: pageSize,
+                                                        currentPage: p,
+                                                        totalItems: total }" >
+              <td [innerText]="item.name"></td>
+              <td [innerText]="(item.description.length>100)? (item.description | slice:0:100)+'...':(item.description)"></td>
+              <td [innerText]="item.partners[0].price"></td>
+              <td ><img class="responsive" [src]="item.partners[0].logo"/></td>
+              <td><a [routerLink]="['/fulllayout/user', item.id]"  class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <pagination-controls  id="pagination_products"
+              (pageChange)="pageChanged($event)"
+              directionLinks="true"
+              previousLabel="Previous"
+              nextLabel="Next"
+              screenReaderPaginationLabel="Pagination"
+              screenReaderPageLabel="page"
+              screenReaderCurrentLabel="You're on page">
+      </pagination-controls>
+
+    </div>
+
+  </div>
+</div>
+
